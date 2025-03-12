@@ -1,5 +1,3 @@
-import React from 'react';
-
 export interface Feedback {
   id: number;
   text: string;
@@ -13,5 +11,6 @@ export interface CreateFeedbackDto {
 
 export interface GlobalState {
   feedbacks: Feedback[];
-  setFeedbacks: React.Dispatch<React.SetStateAction<Feedback[]>>;
+  deleteFeedback: (id: number) => void;
+  addFeedback: (feedback: CreateFeedbackDto) => void;
 }

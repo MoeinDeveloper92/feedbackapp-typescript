@@ -1,17 +1,15 @@
-import React, { FormEvent, useState } from 'react';
+import React, { FormEvent, use, useState } from 'react';
 import Card from './shared/Card';
 import Button from './shared/Button';
 import RatingSelect from './RatingSelect';
-import { CreateFeedbackDto } from '../types';
+import FeedbackContext from '../context/FeedbackContext';
 
-type Props = {
-  addFeedback: (feedback: CreateFeedbackDto) => void;
-};
-const FeedbackForm = ({ addFeedback }: Props) => {
+const FeedbackForm = () => {
   const [text, setText] = useState<string>('');
   const [btnDisabled, setBtnDisabled] = useState<boolean>(true);
   const [message, setMessage] = useState<string | null>(null);
   const [rating, setRating] = useState<number>(10);
+  const state = use(FeedbackContext);
 
   const handleTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (text === '') {
@@ -35,7 +33,7 @@ const FeedbackForm = ({ addFeedback }: Props) => {
         rating,
       };
       //Dispatch feedback merging
-      addFeedback(newFeedback);
+      state?.addFeedback(newFeedback);
       setText('');
     }
   };
