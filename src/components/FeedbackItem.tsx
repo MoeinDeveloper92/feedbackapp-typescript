@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Feedback } from '../types';
-
+import Card from './shared/Card';
 //Data Encapsulation
 //Each compoentn has it's own behavior
 type Props = {
@@ -11,10 +11,10 @@ const FeedbackItem = ({ feedback }: Props) => {
   const [text, setText] = useState<string>(feedback.text);
 
   return (
-    <div className="card">
+    <Card>
       <div className="num-display">{rating}</div>
       <div className="text-display">{text}</div>
-    </div>
+    </Card>
   );
 };
 
