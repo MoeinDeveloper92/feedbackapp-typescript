@@ -1,10 +1,19 @@
+import Header from './components/Header';
+import { useState } from 'react';
+import { Feedback } from './types';
+import { feedbacks as feedbackData } from '../src/data';
+import FeedbackList from './components/FeedbackList';
+
 const App = () => {
-  
+  const [feedbacks, setFeedbacks] = useState<Feedback[]>(feedbackData);
+
   return (
-    <div className="text-center">
-      <h1>Hello Moein Samani Nejad</h1>
-      <p>You are the greatest and I belive in your Power!</p>
-    </div>
+    <>
+      <Header />
+      <div className="container">
+        <FeedbackList feedbacks={feedbacks} />
+      </div>
+    </>
   );
 };
 
