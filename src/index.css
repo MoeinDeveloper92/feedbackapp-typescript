@@ -176,7 +176,7 @@ input:focus {
 }
 
 .btn:disabled:hover {
-  transform: scale(1);
+  transform: scale(1.01);
   opacity: 1;
 }
 
