@@ -1,11 +1,17 @@
-import React, { use, useState } from 'react';
+import React, { FormEvent, useState } from 'react';
 import Card from './shared/Card';
 import Button from './shared/Button';
+import RatingSelect from './RatingSelect';
+import { CreateFeedbackDto } from '../types';
 
-const FeedbackForm = () => {
+type Props = {
+  addFeedback: (feedback: CreateFeedbackDto) => void;
+};
+const FeedbackForm = ({ addFeedback }: Props) => {
   const [text, setText] = useState<string>('');
   const [btnDisabled, setBtnDisabled] = useState<boolean>(true);
   const [message, setMessage] = useState<string | null>(null);
+  const [rating, setRating] = useState<number>(10);
 
   const handleTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (text === '') {
@@ -20,11 +26,24 @@ const FeedbackForm = () => {
     }
     setText(e.target.value);
   };
+
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    if (text.trim().length > 10) {
+      const newFeedback = {
+        text,
+        rating,
+      };
+      //Dispatch feedback merging
+      addFeedback(newFeedback);
+      setText('');
+    }
+  };
   return (
     <Card>
-      <form>
+      <form onSubmit={handleSubmit}>
         <h2>How would you rate your service with us?</h2>
-        {/* :TODO: rating select compoennt */}
+        <RatingSelect select={(id: number) => setRating(id)} />
         <div className="input-group">
           <input
             onChange={handleTextChange}
