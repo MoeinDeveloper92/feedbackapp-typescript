@@ -6,7 +6,9 @@ type Props = {
 };
 
 const Card = ({ children, reverse = false }: Props) => {
-  return <div className={`card ${reverse && 'reverse'}`}>{children}</div>;
+  return (
+    <div className={`card ${reverse && 'reverse'} relative`}>{children}</div>
+  );
 };
 
 export default Card;
