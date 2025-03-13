@@ -7,7 +7,7 @@ export const useClickOutside = (
   useEffect(() => {
     const handleClickOutisde = (e: MouseEvent) => {
       if (ref.current && !ref.current.contains(e.target as Node)) {
-        cb(true);
+        cb(false);
       }
     };
     document.addEventListener('mousedown', handleClickOutisde);

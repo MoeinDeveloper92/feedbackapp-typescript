@@ -17,8 +17,8 @@ const Modal = ({ isOpen, onClose, children }: Props) => {
   return (
     <div className="fixed inset-0 z-20 bg-gray-900/90  flex justify-center items-center">
       <div
-        className="bg-white w-[500px] rounded-4xl gap-9 h-[200px] flex justify-center flex-col  items-center"
         ref={modalRef}
+        className="bg-white w-[500px] rounded-4xl gap-9 h-[200px] flex justify-center flex-col  items-center"
       >
         {children}
       </div>
