@@ -1,5 +1,5 @@
 export interface Feedback {
-  id: number;
+  id?: string;
   text: string;
   rating: number;
 }
@@ -11,6 +11,14 @@ export interface CreateFeedbackDto {
 
 export interface GlobalState {
   feedbacks: Feedback[];
-  deleteFeedback: (id: number) => void;
+  feedbackEdit: EditableFeedback;
   addFeedback: (feedback: CreateFeedbackDto) => void;
+  editFeedback: (item: Feedback) => void;
+  deleteFeedback: (id: string) => void;
+  updateFeedback: (id: string, updFeedback: Feedback) => void;
+}
+
+export interface EditableFeedback {
+  item?: Feedback;
+  edit?: boolean;
 }

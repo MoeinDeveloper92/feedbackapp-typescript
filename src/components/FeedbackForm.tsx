@@ -1,8 +1,9 @@
-import React, { FormEvent, use, useState } from 'react';
+import React, { FormEvent, use, useState, useEffect } from 'react';
 import Card from './shared/Card';
 import Button from './shared/Button';
 import RatingSelect from './RatingSelect';
 import FeedbackContext from '../context/FeedbackContext';
+import { CreateFeedbackDto } from '../types';
 
 const FeedbackForm = () => {
   const [text, setText] = useState<string>('');
@@ -28,20 +29,37 @@ const FeedbackForm = () => {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (text.trim().length > 10) {
-      const newFeedback = {
+      const newFeedback: CreateFeedbackDto = {
         text,
         rating,
       };
-      //Dispatch feedback merging
-      state?.addFeedback(newFeedback);
-      setText('');
+
+      if (state?.feedbackEdit.edit === true) {
+        state.updateFeedback(
+          state.feedbackEdit.item?.id as string,
+          newFeedback
+        );
+        setText('');
+      } else {
+        //Dispatch feedback merging
+        state?.addFeedback(newFeedback);
+        setText('');
+      }
     }
   };
+
+  //Handling Effects
+  useEffect(() => {
+    if (state?.feedbackEdit.edit === true) {
+      setText(state.feedbackEdit.item?.text as string);
+      setRating(state.feedbackEdit.item?.rating as number);
+    }
+  }, [state?.feedbackEdit]);
   return (
     <Card>
       <form onSubmit={handleSubmit}>
         <h2>How would you rate your service with us?</h2>
-        <RatingSelect select={(id: number) => setRating(id)} />
+        <RatingSelect select={(rating: number) => setRating(rating)} />
         <div className="input-group">
           <input
             onChange={handleTextChange}
